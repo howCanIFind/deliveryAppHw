@@ -4,12 +4,10 @@ import com.sparta.deliveryappHw.dto.RestaurantDto;
 import com.sparta.deliveryappHw.validator.RestaurantValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Entity
 public class Restaurant {
@@ -39,4 +37,6 @@ public class Restaurant {
         this.minOrderPrice = requestDto.getMinOrderPrice();
         this.deliveryFee = requestDto.getDeliveryFee();
     }
+
+
 }

@@ -1,10 +1,10 @@
 package com.sparta.deliveryappHw;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +13,6 @@ import org.springframework.http.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -26,7 +24,7 @@ class RestaurantIntegrationTest {
     private HttpHeaders headers;
     private ObjectMapper mapper = new ObjectMapper();
 
-    private final List<RestaurantDto> registeredRestaurants = new ArrayList<>();
+    private final List<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> registeredRestaurants = new ArrayList<>();
 
     @BeforeEach
     public void setup() {
@@ -42,7 +40,7 @@ class RestaurantIntegrationTest {
         @DisplayName("음식점1 등록")
         void test1() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("쉐이크쉑 청담점")
                     .minOrderPrice(1_000)
@@ -53,15 +51,15 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertEquals(HttpStatus.OK, response.getStatusCode());
 
-            RestaurantDto restaurantResponse = response.getBody();
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantResponse = response.getBody();
             assertNotNull(restaurantResponse);
             assertTrue(restaurantResponse.id > 0);
             assertEquals(restaurantRequest.name, restaurantResponse.name);
@@ -77,7 +75,7 @@ class RestaurantIntegrationTest {
         @DisplayName("음식점2 등록")
         void test2() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("자담치킨 강남점")
                     .minOrderPrice(100_000)
@@ -88,15 +86,15 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertEquals(HttpStatus.OK, response.getStatusCode());
 
-            RestaurantDto restaurantResponse = response.getBody();
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantResponse = response.getBody();
             assertNotNull(restaurantResponse);
             assertTrue(restaurantResponse.id > 0);
             assertEquals(restaurantRequest.name, restaurantResponse.name);
@@ -112,7 +110,7 @@ class RestaurantIntegrationTest {
         @DisplayName("음식점3 등록")
         void test3() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("마라하오 위례점")
                     .minOrderPrice(100000)
@@ -123,15 +121,15 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertEquals(HttpStatus.OK, response.getStatusCode());
 
-            RestaurantDto restaurantResponse = response.getBody();
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantResponse = response.getBody();
             assertNotNull(restaurantResponse);
             assertTrue(restaurantResponse.id > 0);
             assertEquals(restaurantRequest.name, restaurantResponse.name);
@@ -147,18 +145,18 @@ class RestaurantIntegrationTest {
         @DisplayName("등록된 모든 음식점 조회")
         void test4() {
             // when
-            ResponseEntity<RestaurantDto[]> response = restTemplate.getForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto[]> response = restTemplate.getForEntity(
                     "/restaurants",
-                    RestaurantDto[].class
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto[].class
             );
 
             // then
             assertEquals(HttpStatus.OK, response.getStatusCode());
-            RestaurantDto[] responseRestaurants = response.getBody();
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto[] responseRestaurants = response.getBody();
             assertNotNull(responseRestaurants);
             assertEquals(registeredRestaurants.size(), responseRestaurants.length);
-            for (RestaurantDto responseRestaurant : responseRestaurants) {
-                RestaurantDto registerRestaurant = registeredRestaurants.stream()
+            for (com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto responseRestaurant : responseRestaurants) {
+                com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto registerRestaurant = registeredRestaurants.stream()
                         .filter(restaurant -> responseRestaurant.getId().equals(restaurant.getId()))
                         .findAny()
                         .orElse(null);
@@ -178,7 +176,7 @@ class RestaurantIntegrationTest {
         @DisplayName("1,000원 미만 에러")
         void test1() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("쉐이크쉑 청담점")
                     .minOrderPrice(500)
@@ -189,10 +187,10 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertTrue(
@@ -205,7 +203,7 @@ class RestaurantIntegrationTest {
         @DisplayName("100,000원 초과 에러")
         void test2() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("쉐이크쉑 청담점")
                     .minOrderPrice(100100)
@@ -216,10 +214,10 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertTrue(
@@ -232,7 +230,7 @@ class RestaurantIntegrationTest {
         @DisplayName("100원 단위로 입력 안 됨 에러")
         void test3() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("쉐이크쉑 청담점")
                     .minOrderPrice(2220)
@@ -243,10 +241,10 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertTrue(
@@ -263,7 +261,7 @@ class RestaurantIntegrationTest {
         @DisplayName("0원 미만 에러")
         void test2() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("쉐이크쉑 청담점")
                     .minOrderPrice(5000)
@@ -274,10 +272,10 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertTrue(
@@ -290,7 +288,7 @@ class RestaurantIntegrationTest {
         @DisplayName("10,000원 초과 에러")
         void test3() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("쉐이크쉑 청담점")
                     .minOrderPrice(5000)
@@ -301,10 +299,10 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertTrue(
@@ -317,7 +315,7 @@ class RestaurantIntegrationTest {
         @DisplayName("500원 단위로 입력 안 됨 에러")
         void test4() throws JsonProcessingException {
             // given
-            RestaurantDto restaurantRequest = RestaurantDto.builder()
+            com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto restaurantRequest = com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.builder()
                     .id(null)
                     .name("쉐이크쉑 청담점")
                     .minOrderPrice(5000)
@@ -328,10 +326,10 @@ class RestaurantIntegrationTest {
             HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
             // when
-            ResponseEntity<RestaurantDto> response = restTemplate.postForEntity(
+            ResponseEntity<com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto> response = restTemplate.postForEntity(
                     "/restaurant/register",
                     request,
-                    RestaurantDto.class);
+                    com.sparta.deliveryappHw.RestaurantIntegrationTest.RestaurantDto.class);
 
             // then
             assertTrue(
@@ -344,6 +342,8 @@ class RestaurantIntegrationTest {
     @Getter
     @Setter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     static class RestaurantDto {
         private Long id;
         private String name;

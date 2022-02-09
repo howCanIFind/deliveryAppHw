@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class RegisterRestaurants {
+public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
     @Autowired
-    public RegisterRestaurants(RestaurantService restaurantService) {
+    public RestaurantController(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
     }
 

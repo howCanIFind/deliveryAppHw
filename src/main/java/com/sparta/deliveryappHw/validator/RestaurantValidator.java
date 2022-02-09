@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class RestaurantValidator {
     public static void validatorRestaurantInput(RestaurantDto restaurantDto) {
 
-        if(restaurantDto.getMinOrderPrice()<1_000 || restaurantDto.getMinOrderPrice()>10_0000) {
+        if(!(restaurantDto.getMinOrderPrice()>=1_000 && restaurantDto.getMinOrderPrice()<=10_0000)) {
             throw new IllegalStateException();
         }
         if(restaurantDto.getMinOrderPrice()%100 != 0) {

@@ -2,10 +2,7 @@ package com.sparta.deliveryappHw.dto;
 
 import lombok.*;
 
-
 @Getter
-@Setter
-@Builder
 public class RestaurantDto {
     // 레스토랑 이름.
     private String name;
