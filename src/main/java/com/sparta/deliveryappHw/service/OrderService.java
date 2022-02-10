@@ -79,10 +79,6 @@ public class OrderService {
             totalPrice += foodPrice;
         }
 
-        System.out.println("----------");
-        for(OrderDetails orderDetail : orderDetailsList) {
-            System.out.println(orderDetail.getName());
-        }
         if(totalPrice < restaurant.getMinOrderPrice()) {
             throw new IllegalStateException("최소 주문 가격에 충족하지 못했습니다.");
         }
@@ -95,7 +91,6 @@ public class OrderService {
                 orderDetailsList
         );
 
-        System.out.println(orderDetailsList.size());
         orderRepository.save(orders);
         OrderResponseDto orderResponseDto = new OrderResponseDto(restaurant.getName(),orderResponseItemList, restaurant.getDeliveryFee(), totalPrice);
         return orderResponseDto;
